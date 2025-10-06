@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Astraphora — Celestial Affirmations</title>
+  <meta name="theme-color" content="#0a0714" />
+  <meta name="description" content="Astraphora: a celestial, moody, dark-theme affirmation portal. Tap to reveal your next star-lit intention." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      /* Use small viewport units to avoid iOS 100vh issues */
+      min-height: 100svh;
+      background: #06040b;
+      color: #f6f4ff;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
+    }
+
+    /* Cosmic gradient backdrop */
+    .bg {
+      position: fixed; inset: 0;
+      background: radial-gradient(1200px 800px at 70% 20%, rgba(111, 66, 193, 0.15), transparent 60%),
+                  radial-gradient(900px 700px at 20% 80%, rgba(0, 166, 255, 0.12), transparent 60%),
+                  linear-gradient(180deg, #05030a 0%, #0a0714 60%, #04020a 100%);
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    /* Starfield layers (pure CSS) */
+    .stars, .stars2, .stars3 {
+      position: absolute; inset: -2000px 0 0 0;
+      background-repeat: repeat;
+      animation: drift 120s linear infinite;
+      opacity: 0.7;
+      pointer-events: none;
+      filter: drop-shadow(0 0 2px rgba(255,255,255,0.35));
+    }
+    .stars  { background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(255,255,255,0)); background-size: 200px 200px; animation-duration: 180s; opacity: .4; }
+    .stars2 { background-image: radial-gradient(1.5px 1.5px at 60px 80px, #b9a8ff, rgba(255,255,255,0)); background-size: 240px 240px; animation-duration: 240s; opacity: .35; }
+    .stars3 { background-image: radial-gradient(1px 1px at 100px 140px, #9ad0ff, rgba(255,255,255,0)); background-size: 260px 260px; animation-duration: 300s; opacity: .3; }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to   { transform: translateY(200px); }
+    }
+
+    /* Layout */
+    .wrap {
+      position: relative;
+      min-height: 100svh; /* iOS-safe viewport */
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      z-index: 1;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 16px 8px;
+    }
+    .brand {
+      font-family: Cinzel, serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: clamp(18px, 5vw, 28px);
+      color: #eae6ff;
+      text-shadow: 0 0 18px rgba(140, 84, 255, .35);
+    }
+    .tagline {
+      margin-top: 4px;
+      font-size: 13px;
+      opacity: 0.7;
+      letter-spacing: 0.08em;
+    }
+
+    main {
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+    }
+
+    .card {
+      width: min(820px, 92vw);
+      border-radius: 18px;
+      padding: clamp(20px, 5vw, 36px);
+      background: rgba(12, 8, 22, 0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); /* iOS */
+      border: 1px solid rgba(150, 120, 255, 0.18);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.5),
+        inset 0 0 40px rgba(110, 50, 200, .08);
+    }
+
+    .affirmation {
+      font-family: Cinzel, serif;
+      font-weight: 600;
+      font-size: clamp(22px, 5vw, 38px);
+      line-height: 1.25;
+      text-align: center;
+      color: #f3efff;
+      text-shadow: 0 0 22px rgba(133, 90, 255, .25);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 360ms ease, transform 360ms ease;
+      user-select: none;
+    }
+    .affirmation.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hint {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.6;
+    }
+
+    .controls {
+      margin-top: clamp(16px, 4vw, 28px);
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 220px;
+      padding: 14px 18px;
+      border: 1px solid rgba(173, 140, 255, 0.35);
+      background: radial-gradient(120% 220% at 50% 0%, rgba(129, 97, 255, .35), rgba(39, 18, 66, .6));
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 160ms ease, background 300ms ease;
+      box-shadow: 0 8px 24px rgba(76, 36, 140, .35);
+      touch-action: manipulation;
+    }
+    .btn:active { transform: translateY(1px) scale(.997); }
+    .btn:hover  { box-shadow: 0 10px 34px rgba(76, 36, 140, .5); }
+
+    .btn.secondary {
+      min-width: 54px;
+      padding: 12px 14px;
+      font-weight: 500;
+      background: rgba(30, 20, 55, .6);
+      box-shadow: none;
+      border: 1px solid rgba(173, 140, 255, 0.25);
+    }
+
+    footer {
+      padding: 18px 16px 26px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.55;
+    }
+
+    .tap-anywhere {
+      display: none;
+      margin-top: 8px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.55;
+    }
+    @media (max-width: 560px) {
+      .tap-anywhere { display: block; }
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid #c1a7ff;
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+  </div>
+
+  <div class="wrap" id="app">
+    <header>
+      <div class="brand" aria-label="Astraphora">ASTRAPHORA</div>
+      <div class="tagline">a celestial affirmation companion</div>
+    </header>
+
+    <main>
+      <section class="card" role="region" aria-live="polite" aria-atomic="true">
+        <div id="affirmation" class="affirmation" tabindex="-1">Loading your starlit message…</div>
+        <p class="hint">Read aloud. Breathe slowly. Let it land.</p>
+        <div class="controls">
+          <button class="btn" id="nextBtn" aria-label="Next affirmation">
+            ✦ Next Affirmation ✦
+          </button>
+          <button class="btn secondary" id="shuffleBtn" title="Reshuffle deck" aria-label="Reshuffle deck">↻</button>
+        </div>
+        <div class="tap-anywhere">tip: you can also tap anywhere to advance</div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Astraphora • Made for quiet moments under a vast sky
+    </footer>
+  </div>
+
+  <script>
+    /* ===== Safe storage helpers (handle iOS Private mode) ===== */
+    const storage = {
+      get(key) {
+        try { return window.localStorage.getItem(key); }
+        catch { return null; }
+      },
+      set(key, val) {
+        try { window.localStorage.setItem(key, val); }
+        catch { /* no-op: fallback to memory only */ }
+      }
+    };
+
+    /* ===== Utilities ===== */
+    const $ = sel => document.querySelector(sel);
+
+    /* ===== Affirmations ===== */
+    const AFFIRMATIONS = [
+      "I am aligned with the rhythm of the cosmos.",
+      "Abundance flows to me like starlight.",
+      "I trust divine timing and move with grace.",
+      "I am open to receiving what I desire.",
+      "My energy shapes reality with clarity and love.",
+      "Every breath anchors me in peace.",
+      "I allow miracles to unfold in perfect order.",
+      "I magnetize opportunities that serve my highest good.",
+      "I am held, guided, and supported by the universe.",
+      "I release what is heavy and rise like a new moon.",
+      "I am worthy of joy that lingers.",
+      "I meet myself with tenderness and patience.",
+      "My purpose reveals itself in perfect light.",
+      "I welcome abundance in all forms.",
+      "I choose thoughts that honor my becoming.",
+      "I am the calm center of every storm.",
+      "I receive without guilt; I give without depletion.",
+      "I honor my boundaries as sacred.",
+      "I am safe to expand and be seen.",
+      "I act with quiet courage and radiant certainty.",
+      "I let ease be my guide.",
+      "I am a clear channel for inspiration.",
+      "I trust my inner wisdom completely.",
+      "What is meant for me cannot miss me.",
+      "I release resistance and soften into flow.",
+      "I am a lighthouse for my own soul.",
+      "I claim space with humility and power.",
+      "I am worthy of love that is steady and true.",
+      "I choose curiosity over fear.",
+      "I am grateful for the lessons that shaped me.",
+      "My destiny unfolds in gentle increments.",
+      "I am present, grounded, and luminous.",
+      "I move at the speed of trust.",
+      "I am open to delightful surprises.",
+      "I honor the cycles of rest and action.",
+      "I am guided to the right people and places.",
+      "I embody serenity and strength.",
+      "I welcome clarity like dawn over water.",
+      "I nurture the life I’m building.",
+      "I let go of what I cannot control.",
+      "I allow wealth to arrive joyfully.",
+      "I am safe to receive more than I imagined.",
+      "I speak to myself with devotion.",
+      "I am a patient gardener of my dreams.",
+      "I celebrate small wins as sacred milestones.",
+      "I let my yes be wholehearted and my no be honored.",
+      "I choose alignment over urgency.",
+      "I am resilient, rooted, and rising.",
+      "I let beauty find me where I am.",
+      "I am the author of kinder narratives.",
+      "I claim a peaceful relationship with time.",
+      "I let ease and excellence coexist.",
+      "I am worthy of consistent, overflowing support.",
+      "I welcome inspired action today.",
+      "I am receptive to love in expected and unexpected ways.",
+      "I honor my body’s wisdom and pace.",
+      "I am allowed to change and be new.",
+      "I am capable of elegant solutions.",
+      "I choose presence over perfection.",
+      "I let the past be tender and complete.",
+      "I am richly provided for.",
+      "I radiate a calm, confident frequency.",
+      "I invite only what nourishes me.",
+      "I make room for the life I’m calling in.",
+      "I am guided by quiet, undeniable knowing.",
+      "I release comparison and return to myself.",
+      "I am in conversation with a generous universe.",
+      "I trust the unseen work already unfolding.",
+      "I protect my peace as a sacred resource.",
+      "I allow my gifts to be witnessed.",
+      "I welcome ideas that arrive like shooting stars.",
+      "I invest in my joy without apology.",
+      "I practice softness as a form of strength.",
+      "I am exactly where I need to be.",
+      "I honor closure and welcome beginnings.",
+      "I am courageous enough to rest.",
+      "I receive abundance with humility and gratitude.",
+      "I choose pathways that feel like relief.",
+      "I am expanding at a humane pace.",
+      "I allow help to find me easily.",
+      "I trust my timing, even when it’s different.",
+      "I am a steady steward of my dreams.",
+      "I make space for wonder every day.",
+      "I am in alignment with my deepest values.",
+      "I let my life be both simple and profound.",
+      "I am a clear yes to what lights me up.",
+      "I am safe, loved, and becoming."
+    ];
+
+    /* ===== Shuffle Logic (non-repeating until deck reset) ===== */
+    let deck = [];
+    let index = 0;
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function resetDeck() {
+      deck = shuffle(AFFIRMATIONS);
+      index = 0;
+      storage.set('astraphora_deck', JSON.stringify(deck));
+      storage.set('astraphora_index', index.toString());
+    }
+
+    function loadDeck() {
+      const savedDeck = storage.get('astraphora_deck');
+      const savedIdx  = storage.get('astraphora_index');
+      if (savedDeck) {
+        try {
+          deck = JSON.parse(savedDeck);
+          index = Math.min(parseInt(savedIdx || '0', 10) || 0, Math.max(deck.length - 1, 0));
+          if (deck.length !== AFFIRMATIONS.length) resetDeck();
+          return;
+        } catch {
+          /* corrupted storage; reset */
+        }
+      }
+      resetDeck();
+    }
+
+    function nextAffirmation() {
+      if (!deck.length) resetDeck();
+      const text = deck[index];
+      index = (index + 1) % deck.length;
+      if (index === 0) {
+        resetDeck(); // reshuffle on wrap
+      } else {
+        storage.set('astraphora_index', index.toString());
+      }
+      renderAffirmation(text);
+    }
+
+    /* ===== UI ===== */
+    const affirmationEl = document.getElementById('affirmation');
+    const nextBtn       = document.getElementById('nextBtn');
+    const shuffleBtn    = document.getElementById('shuffleBtn');
+
+    function renderAffirmation(text) {
+      affirmationEl.classList.remove('visible');
+      setTimeout(() => {
+        affirmationEl.textContent = text;
+        affirmationEl.classList.add('visible');
+        affirmationEl.focus({ preventScroll: true });
+      }, 160);
+    }
+
+    function handleAdvance() {
+      nextAffirmation();
+    }
+
+    function tapAnywhere(e) {
+      if (e.target.closest('.btn')) return;
+      handleAdvance();
+    }
+
+    function keyAdvance(e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        handleAdvance();
+      }
+    }
+
+    (function init() {
+      document.getElementById('year').textContent = new Date().getFullYear();
+      loadDeck();
+      renderAffirmation(deck[index]);
+      nextBtn.addEventListener('click', handleAdvance);
+      shuffleBtn.addEventListener('click', () => { resetDeck(); renderAffirmation(deck[index]); });
+      document.addEventListener('click', tapAnywhere, { passive: true });
+      document.addEventListener('keydown', keyAdvance, { passive: false });
+    })();
+  </script>
+</body>
+</html>
