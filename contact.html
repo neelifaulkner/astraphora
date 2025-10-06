@@ -41,17 +41,20 @@
 </head>
 <body>
   <div class="bg" aria-hidden="true"><div class="stars"></div><div class="stars2"></div><div class="stars3"></div></div>
-  <button class="menu-btn" id="menuBtn">☰</button>
-  <nav class="menu-overlay" id="menuOverlay"><div class="menu-panel">
-    <ul class="menu-list">
-      <li><a class="menu-link" href="/astraphora/">Home</a></li>
-      <li><a class="menu-link" href="/astraphora/about.html">About</a></li>
-      <li><a class="menu-link" href="/astraphora/support.html">Support</a></li>
-      <li><a class="menu-link" href="/astraphora/contact.html">Contact</a></li>
-      <li><a class="menu-link" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe</a></li>
-    </ul>
-    <button class="menu-close" id="menuClose">✕ Close</button>
-  </div></nav>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  <nav class="menu-overlay" id="menuOverlay" aria-hidden="true">
+    <div class="menu-panel" role="dialog" aria-modal="true" aria-label="Site menu">
+      <ul class="menu-list">
+        <li><a class="menu-link" href="/astraphora/">Home</a></li>
+        <li><a class="menu-link" href="/astraphora/about.html">About</a></li>
+        <li><a class="menu-link" href="/astraphora/support.html">Support</a></li>
+        <li><a class="menu-link" href="/astraphora/contact.html">Contact</a></li>
+        <li><a class="menu-link" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe</a></li>
+      </ul>
+      <button class="menu-close" id="menuClose">✕ Close</button>
+    </div>
+  </nav>
 
   <div class="wrap">
     <header><div class="brand">ASTRAPHORA</div><div class="tagline">a celestial affirmation companion</div></header>
@@ -68,4 +71,14 @@
   </div>
 
   <script>
-    document.getElementById('year').textContent=new Date().get
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuBtn=document.getElementById('menuBtn'),menuOverlay=document.getElementById('menuOverlay'),menuClose=document.getElementById('menuClose');
+    function openMenu(){menuOverlay.classList.add('active');menuOverlay.setAttribute('aria-hidden','false');menuBtn.setAttribute('aria-expanded','true');}
+    function closeMenu(){menuOverlay.classList.remove('active');menuOverlay.setAttribute('aria-hidden','true');menuBtn.setAttribute('aria-expanded','false');}
+    menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('active')?closeMenu():openMenu());
+    menuClose.addEventListener('click',closeMenu);
+    menuOverlay.addEventListener('click',e=>{if(e.target===menuOverlay||e.target.matches('.menu-link'))closeMenu();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOverlay.classList.contains('active'))closeMenu();});
+  </script>
+</body>
+</html>
