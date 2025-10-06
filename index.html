@@ -16,8 +16,7 @@
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; }
     body {
-      /* Use small viewport units to avoid iOS 100vh issues */
-      min-height: 100svh;
+      min-height: 100svh; /* iOS-safe viewport */
       background: #06040b;
       color: #f6f4ff;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -35,7 +34,7 @@
       z-index: 0;
     }
 
-    /* Starfield layers (pure CSS) */
+    /* Starfield layers */
     .stars, .stars2, .stars3 {
       position: absolute; inset: -2000px 0 0 0;
       background-repeat: repeat;
@@ -48,24 +47,12 @@
     .stars2 { background-image: radial-gradient(1.5px 1.5px at 60px 80px, #b9a8ff, rgba(255,255,255,0)); background-size: 240px 240px; animation-duration: 240s; opacity: .35; }
     .stars3 { background-image: radial-gradient(1px 1px at 100px 140px, #9ad0ff, rgba(255,255,255,0)); background-size: 260px 260px; animation-duration: 300s; opacity: .3; }
 
-    @keyframes drift {
-      from { transform: translateY(0); }
-      to   { transform: translateY(200px); }
-    }
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(200px); } }
 
     /* Layout */
-    .wrap {
-      position: relative;
-      min-height: 100svh; /* iOS-safe viewport */
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      z-index: 1;
-    }
+    .wrap { position: relative; min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; z-index: 1; }
 
-    header {
-      text-align: center;
-      padding: 70px 16px 8px;
-    }
+    header { text-align: center; padding: 70px 16px 8px; }
     .brand {
       font-family: Cinzel, serif;
       letter-spacing: 0.18em;
@@ -75,18 +62,9 @@
       color: #eae6ff;
       text-shadow: 0 0 18px rgba(140, 84, 255, .35);
     }
-    .tagline {
-      margin-top: 4px;
-      font-size: 13px;
-      opacity: 0.7;
-      letter-spacing: 0.08em;
-    }
+    .tagline { margin-top: 4px; font-size: 13px; opacity: 0.7; letter-spacing: 0.08em; }
 
-    main {
-      display: grid;
-      place-items: center;
-      padding: 24px 16px;
-    }
+    main { display: grid; place-items: center; padding: 24px 16px; }
 
     .card {
       width: min(820px, 92vw);
@@ -94,11 +72,9 @@
       padding: clamp(20px, 5vw, 36px);
       background: rgba(12, 8, 22, 0.55);
       backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px); /* iOS */
+      -webkit-backdrop-filter: blur(6px);
       border: 1px solid rgba(150, 120, 255, 0.18);
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.5),
-        inset 0 0 40px rgba(110, 50, 200, .08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 0 40px rgba(110, 50, 200, .08);
     }
 
     .affirmation {
@@ -109,91 +85,90 @@
       text-align: center;
       color: #f3efff;
       text-shadow: 0 0 22px rgba(133, 90, 255, .25);
-      opacity: 0;
-      transform: translateY(6px);
+      opacity: 0; transform: translateY(6px);
       transition: opacity 360ms ease, transform 360ms ease;
       user-select: none;
     }
-    .affirmation.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .affirmation.visible { opacity: 1; transform: translateY(0); }
 
-    .hint {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 12px;
-      opacity: 0.6;
-    }
+    .hint { margin-top: 12px; text-align: center; font-size: 12px; opacity: 0.6; }
 
-    .controls {
-      margin-top: clamp(16px, 4vw, 28px);
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+    .controls { margin-top: clamp(16px, 4vw, 28px); display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-width: 220px;
-      padding: 14px 18px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-width: 220px; padding: 14px 18px;
       border: 1px solid rgba(173, 140, 255, 0.35);
       background: radial-gradient(120% 220% at 50% 0%, rgba(129, 97, 255, .35), rgba(39, 18, 66, .6));
-      color: #fff;
-      text-decoration: none;
-      border-radius: 999px;
-      font-weight: 600;
-      letter-spacing: .04em;
-      cursor: pointer;
-      transition: transform 120ms ease, box-shadow 160ms ease, background 300ms ease;
-      box-shadow: 0 8px 24px rgba(76, 36, 140, .35);
-      touch-action: manipulation;
+      color: #fff; text-decoration: none; border-radius: 999px; font-weight: 600; letter-spacing: .04em;
+      cursor: pointer; transition: transform 120ms ease, box-shadow 160ms ease, background 300ms ease;
+      box-shadow: 0 8px 24px rgba(76, 36, 140, .35); touch-action: manipulation;
     }
     .btn:active { transform: translateY(1px) scale(.997); }
     .btn:hover  { box-shadow: 0 10px 34px rgba(76, 36, 140, .5); }
 
-    .btn.secondary {
-      min-width: 54px;
-      padding: 12px 14px;
-      font-weight: 500;
+    .btn.secondary { min-width: 54px; padding: 12px 14px; font-weight: 500; background: rgba(30, 20, 55, .6);
+      box-shadow: none; border: 1px solid rgba(173, 140, 255, 0.25); }
+
+    footer { padding: 18px 16px 26px; text-align: center; font-size: 12px; opacity: 0.55; }
+
+    .tap-anywhere { display: none; margin-top: 8px; text-align: center; font-size: 12px; opacity: 0.55; }
+    @media (max-width: 560px) { .tap-anywhere { display: block; } }
+
+    .btn:focus-visible { outline: 2px solid #c1a7ff; outline-offset: 3px; }
+    .affirmation:focus { outline: 2px solid rgba(186, 153, 255, 0.25); outline-offset: 4px; border-radius: 6px; }
+
+    /* === Hamburger Menu === */
+    .menu-btn {
+      position: fixed; top: 16px; right: 16px;
+      width: 42px; height: 42px;
+      display: grid; place-items: center;
+      border-radius: 999px;
       background: rgba(30, 20, 55, .6);
-      box-shadow: none;
-      border: 1px solid rgba(173, 140, 255, 0.25);
+      border: 1px solid rgba(173, 140, 255, 0.35);
+      color: #e9e3ff;
+      font-size: 20px; line-height: 1;
+      cursor: pointer;
+      z-index: 50;
+      box-shadow: 0 6px 18px rgba(76, 36, 140, .35);
+      text-shadow: 0 0 10px rgba(150, 100, 255, .5);
     }
+    .menu-btn:focus-visible { outline: 2px solid #c1a7ff; outline-offset: 3px; }
 
-    footer {
-      padding: 18px 16px 26px;
-      text-align: center;
-      font-size: 12px;
-      opacity: 0.55;
+    .menu-overlay {
+      position: fixed; inset: 0; z-index: 49;
+      display: none; align-items: center; justify-content: center;
+      background: rgba(8, 5, 18, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: opacity .2s ease;
     }
+    .menu-overlay.active { display: flex; }
 
-    .tap-anywhere {
-      display: none;
-      margin-top: 8px;
-      text-align: center;
-      font-size: 12px;
-      opacity: 0.55;
+    .menu-panel {
+      text-align: center; padding: 24px;
     }
-    @media (max-width: 560px) {
-      .tap-anywhere { display: block; }
+    .menu-title {
+      font-family: Cinzel, serif; letter-spacing: .12em; text-transform: uppercase;
+      font-size: 14px; opacity: .7; margin-bottom: 18px;
     }
+    .menu-list { list-style: none; padding: 0; margin: 0; }
+    .menu-list li { margin: 12px 0; }
+    .menu-link {
+      color: #f3efff; text-decoration: none;
+      font-family: Cinzel, serif; font-size: 1.25rem; letter-spacing: .04em;
+      text-shadow: 0 0 12px rgba(130, 90, 255, 0.3);
+      transition: opacity .2s ease;
+    }
+    .menu-link:hover { opacity: .85; }
 
-    .btn:focus-visible {
-      outline: 2px solid #c1a7ff;
-      outline-offset: 3px;
+    .menu-close {
+      margin-top: 22px;
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(173,140,255,.35);
+      background: rgba(30,20,55,.6);
+      color: #fff; border-radius: 999px; padding: 10px 14px; cursor: pointer;
     }
-    
-    .affirmation:focus {
-  outline: 2px solid rgba(186, 153, 255, 0.25);
-  outline-offset: 4px;
-  border-radius: 6px;
-}
-
   </style>
 </head>
 <body>
@@ -202,6 +177,24 @@
     <div class="stars2"></div>
     <div class="stars3"></div>
   </div>
+
+  <!-- Hamburger button -->
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+
+  <!-- Overlay menu -->
+  <nav class="menu-overlay" id="menuOverlay" aria-hidden="true">
+    <div class="menu-panel" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="menu-title">Astraphora</div>
+      <ul class="menu-list">
+        <li><a class="menu-link" href="/astraphora/">Home</a></li>
+        <li><a class="menu-link" href="/astraphora/about.html">About</a></li>
+        <li><a class="menu-link" href="/astraphora/support.html">Support</a></li>
+        <li><a class="menu-link" href="/astraphora/contact.html">Contact</a></li>
+        <li><a class="menu-link" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe</a></li>
+      </ul>
+      <button class="menu-close" id="menuClose" aria-label="Close menu">✕ Close</button>
+    </div>
+  </nav>
 
   <div class="wrap" id="app">
     <header>
@@ -215,9 +208,7 @@
         <p class="hint">Read aloud if it resonates. Breathe it in. Let it settle like starlight.</p>
 
         <div class="controls">
-          <button class="btn" id="nextBtn" aria-label="Next affirmation">
-            ✦ Next Affirmation ✦
-          </button>
+          <button class="btn" id="nextBtn" aria-label="Next affirmation">✦ Next Affirmation ✦</button>
           <button class="btn secondary" id="shuffleBtn" title="Reshuffle deck" aria-label="Reshuffle deck">↻</button>
         </div>
         <div class="tap-anywhere">tip: you can also tap anywhere to advance</div>
@@ -225,22 +216,15 @@
     </main>
 
     <footer>
-  © <span id="year"></span> Neeli Faulkner. All rights reserved. Astraphora™
-</footer>
-
+      © <span id="year"></span> Neeli Faulkner. All rights reserved. Astraphora™
+    </footer>
   </div>
 
   <script>
     /* ===== Safe storage helpers (handle iOS Private mode) ===== */
     const storage = {
-      get(key) {
-        try { return window.localStorage.getItem(key); }
-        catch { return null; }
-      },
-      set(key, val) {
-        try { window.localStorage.setItem(key, val); }
-        catch { /* no-op: fallback to memory only */ }
-      }
+      get(key) { try { return window.localStorage.getItem(key); } catch { return null; } },
+      set(key, val) { try { window.localStorage.setItem(key, val); } catch {} }
     };
 
     /* ===== Utilities ===== */
@@ -338,89 +322,79 @@
     ];
 
     /* ===== Shuffle Logic (non-repeating until deck reset) ===== */
-    let deck = [];
-    let index = 0;
+    let deck = []; let index = 0;
 
-    function shuffle(arr) {
-      const a = [...arr];
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    function resetDeck() {
-      deck = shuffle(AFFIRMATIONS);
-      index = 0;
-      storage.set('astraphora_deck', JSON.stringify(deck));
-      storage.set('astraphora_index', index.toString());
-    }
-
-    function loadDeck() {
-      const savedDeck = storage.get('astraphora_deck');
-      const savedIdx  = storage.get('astraphora_index');
-      if (savedDeck) {
-        try {
-          deck = JSON.parse(savedDeck);
-          index = Math.min(parseInt(savedIdx || '0', 10) || 0, Math.max(deck.length - 1, 0));
-          if (deck.length !== AFFIRMATIONS.length) resetDeck();
-          return;
-        } catch {
-          /* corrupted storage; reset */
-        }
-      }
+    function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+    function resetDeck(){ deck=shuffle(AFFIRMATIONS); index=0; storage.set('astraphora_deck', JSON.stringify(deck)); storage.set('astraphora_index', index.toString()); }
+    function loadDeck(){
+      const savedDeck = storage.get('astraphora_deck'); const savedIdx = storage.get('astraphora_index');
+      if(savedDeck){ try{ deck=JSON.parse(savedDeck); index=Math.min(parseInt(savedIdx||'0',10)||0, Math.max(deck.length-1,0)); if(deck.length!==AFFIRMATIONS.length) resetDeck(); return; } catch{} }
       resetDeck();
     }
-
-    function nextAffirmation() {
-      if (!deck.length) resetDeck();
+    function nextAffirmation(){
+      if(!deck.length) resetDeck();
       const text = deck[index];
       index = (index + 1) % deck.length;
-      if (index === 0) {
-        resetDeck(); // reshuffle on wrap
-      } else {
-        storage.set('astraphora_index', index.toString());
-      }
+      if(index===0){ resetDeck(); } else { storage.set('astraphora_index', index.toString()); }
       renderAffirmation(text);
     }
 
     /* ===== UI ===== */
-    const affirmationEl = document.getElementById('affirmation');
-    const nextBtn       = document.getElementById('nextBtn');
-    const shuffleBtn    = document.getElementById('shuffleBtn');
+    const affirmationEl = $('#affirmation');
+    const nextBtn = $('#nextBtn');
+    const shuffleBtn = $('#shuffleBtn');
 
-    function renderAffirmation(text) {
+    function renderAffirmation(text){
       affirmationEl.classList.remove('visible');
-      setTimeout(() => {
-        affirmationEl.textContent = text;
-        affirmationEl.classList.add('visible');
-        affirmationEl.focus({ preventScroll: true });
-      }, 160);
+      setTimeout(()=>{ affirmationEl.textContent=text; affirmationEl.classList.add('visible'); affirmationEl.focus({preventScroll:true}); },160);
     }
+    function handleAdvance(){ nextAffirmation(); }
 
-    function handleAdvance() {
-      nextAffirmation();
-    }
-
-    function tapAnywhere(e) {
-      if (e.target.closest('.btn')) return;
+    // Tap anywhere to advance, but ignore taps inside menu or buttons
+    function tapAnywhere(e){
+      if (e.target.closest('.btn, .menu-btn, .menu-overlay')) return;
       handleAdvance();
     }
-
-    function keyAdvance(e) {
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        handleAdvance();
-      }
+    function keyAdvance(e){
+      if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); handleAdvance(); }
     }
 
-    (function init() {
+    // === Menu logic ===
+    const menuBtn = $('#menuBtn');
+    const menuOverlay = $('#menuOverlay');
+    const menuClose = $('#menuClose');
+
+    function openMenu(){
+      menuOverlay.classList.add('active');
+      menuOverlay.setAttribute('aria-hidden','false');
+      menuBtn.setAttribute('aria-expanded','true');
+    }
+    function closeMenu(){
+      menuOverlay.classList.remove('active');
+      menuOverlay.setAttribute('aria-hidden','true');
+      menuBtn.setAttribute('aria-expanded','false');
+      menuBtn.focus({preventScroll:true});
+    }
+
+    menuBtn.addEventListener('click', ()=> {
+      const isOpen = menuOverlay.classList.contains('active');
+      isOpen ? closeMenu() : openMenu();
+    });
+    menuClose.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', (e)=> {
+      // Close if clicking outside panel or on a link
+      if (e.target === menuOverlay || e.target.matches('.menu-link')) closeMenu();
+    });
+    document.addEventListener('keydown', (e)=> {
+      if (e.key === 'Escape' && menuOverlay.classList.contains('active')) closeMenu();
+    });
+
+    (function init(){
       document.getElementById('year').textContent = new Date().getFullYear();
       loadDeck();
       renderAffirmation(deck[index]);
       nextBtn.addEventListener('click', handleAdvance);
-      shuffleBtn.addEventListener('click', () => { resetDeck(); renderAffirmation(deck[index]); });
+      shuffleBtn.addEventListener('click', ()=>{ resetDeck(); renderAffirmation(deck[index]); });
       document.addEventListener('click', tapAnywhere, { passive: true });
       document.addEventListener('keydown', keyAdvance, { passive: false });
     })();
