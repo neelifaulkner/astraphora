@@ -34,7 +34,7 @@
       z-index: 0;
     }
 
-    /* Starfield layers */
+    /* Starfield layers (pure CSS) */
     .stars, .stars2, .stars3 {
       position: absolute; inset: -2000px 0 0 0;
       background-repeat: repeat;
@@ -47,12 +47,24 @@
     .stars2 { background-image: radial-gradient(1.5px 1.5px at 60px 80px, #b9a8ff, rgba(255,255,255,0)); background-size: 240px 240px; animation-duration: 240s; opacity: .35; }
     .stars3 { background-image: radial-gradient(1px 1px at 100px 140px, #9ad0ff, rgba(255,255,255,0)); background-size: 260px 260px; animation-duration: 300s; opacity: .3; }
 
-    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(200px); } }
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to   { transform: translateY(200px); }
+    }
 
     /* Layout */
-    .wrap { position: relative; min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; z-index: 1; }
+    .wrap {
+      position: relative;
+      min-height: 100svh; /* iOS-safe viewport */
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      z-index: 1;
+    }
 
-    header { text-align: center; padding: 70px 16px 8px; }
+    header {
+      text-align: center;
+      padding: 70px 16px 8px;
+    }
     .brand {
       font-family: Cinzel, serif;
       letter-spacing: 0.18em;
@@ -62,9 +74,18 @@
       color: #eae6ff;
       text-shadow: 0 0 18px rgba(140, 84, 255, .35);
     }
-    .tagline { margin-top: 4px; font-size: 13px; opacity: 0.7; letter-spacing: 0.08em; }
+    .tagline {
+      margin-top: 4px;
+      font-size: 13px;
+      opacity: 0.7;
+      letter-spacing: 0.08em;
+    }
 
-    main { display: grid; place-items: center; padding: 24px 16px; }
+    main {
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+    }
 
     .card {
       width: min(820px, 92vw);
@@ -72,10 +93,44 @@
       padding: clamp(20px, 5vw, 36px);
       background: rgba(12, 8, 22, 0.55);
       backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px); /* iOS */
       border: 1px solid rgba(150, 120, 255, 0.18);
-      box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 0 40px rgba(110, 50, 200, .08);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.5),
+        inset 0 0 40px rgba(110, 50, 200, .08);
     }
+
+    /* Segmented category control */
+    .seg {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 0 0 14px 0;
+      flex-wrap: wrap;
+    }
+    .seg__btn {
+      appearance: none;
+      border: 1px solid rgba(173,140,255,0.35);
+      background: rgba(30,20,55,.55);
+      color: #f6f4ff;
+      font: 600 13px/1 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      padding: 10px 14px;
+      border-radius: 999px;
+      letter-spacing: .02em;
+      cursor: pointer;
+      transition: box-shadow .18s ease, transform .12s ease, background .25s ease, opacity .2s ease;
+      box-shadow: 0 6px 16px rgba(76,36,140,.25);
+    }
+    .seg__btn:hover { box-shadow: 0 8px 22px rgba(76,36,140,.35); }
+    .seg__btn:active { transform: translateY(1px); }
+    .seg__btn.is-active {
+      background: radial-gradient(120% 220% at 50% 0%, rgba(129,97,255,.38), rgba(39,18,66,.7));
+      border-color: rgba(173,140,255,.6);
+      text-shadow: 0 0 10px rgba(150,100,255,.45);
+    }
+    .seg__btn:focus-visible { outline: 2px solid #c1a7ff; outline-offset: 2px; }
 
     .affirmation {
       font-family: Cinzel, serif;
@@ -85,38 +140,89 @@
       text-align: center;
       color: #f3efff;
       text-shadow: 0 0 22px rgba(133, 90, 255, .25);
-      opacity: 0; transform: translateY(6px);
+      opacity: 0;
+      transform: translateY(6px);
       transition: opacity 360ms ease, transform 360ms ease;
       user-select: none;
     }
-    .affirmation.visible { opacity: 1; transform: translateY(0); }
+    .affirmation.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    .hint { margin-top: 12px; text-align: center; font-size: 12px; opacity: 0.6; }
+    .hint {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.6;
+    }
 
-    .controls { margin-top: clamp(16px, 4vw, 28px); display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .controls {
+      margin-top: clamp(16px, 4vw, 28px);
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
 
     .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-      min-width: 220px; padding: 14px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 220px;
+      padding: 14px 18px;
       border: 1px solid rgba(173, 140, 255, 0.35);
       background: radial-gradient(120% 220% at 50% 0%, rgba(129, 97, 255, .35), rgba(39, 18, 66, .6));
-      color: #fff; text-decoration: none; border-radius: 999px; font-weight: 600; letter-spacing: .04em;
-      cursor: pointer; transition: transform 120ms ease, box-shadow 160ms ease, background 300ms ease;
-      box-shadow: 0 8px 24px rgba(76, 36, 140, .35); touch-action: manipulation;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 160ms ease, background 300ms ease;
+      box-shadow: 0 8px 24px rgba(76, 36, 140, .35);
+      touch-action: manipulation;
     }
     .btn:active { transform: translateY(1px) scale(.997); }
     .btn:hover  { box-shadow: 0 10px 34px rgba(76, 36, 140, .5); }
 
-    .btn.secondary { min-width: 54px; padding: 12px 14px; font-weight: 500; background: rgba(30, 20, 55, .6);
-      box-shadow: none; border: 1px solid rgba(173, 140, 255, 0.25); }
+    .btn.secondary {
+      min-width: 54px;
+      padding: 12px 14px;
+      font-weight: 500;
+      background: rgba(30, 20, 55, .6);
+      box-shadow: none;
+      border: 1px solid rgba(173, 140, 255, 0.25);
+    }
 
-    footer { padding: 18px 16px 26px; text-align: center; font-size: 12px; opacity: 0.55; }
+    footer {
+      padding: 18px 16px 26px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.55;
+    }
 
-    .tap-anywhere { display: none; margin-top: 8px; text-align: center; font-size: 12px; opacity: 0.55; }
-    @media (max-width: 560px) { .tap-anywhere { display: block; } }
+    .tap-anywhere {
+      display: none;
+      margin-top: 8px;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.55;
+    }
+    @media (max-width: 560px) {
+      .tap-anywhere { display: block; }
+    }
 
-    .btn:focus-visible { outline: 2px solid #c1a7ff; outline-offset: 3px; }
-    .affirmation:focus { outline: 2px solid rgba(186, 153, 255, 0.25); outline-offset: 4px; border-radius: 6px; }
+    .btn:focus-visible {
+      outline: 2px solid #c1a7ff;
+      outline-offset: 3px;
+    }
+    .affirmation:focus {
+      outline: 2px solid rgba(186, 153, 255, 0.25);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
 
     /* === Hamburger Menu === */
     .menu-btn {
@@ -145,9 +251,7 @@
     }
     .menu-overlay.active { display: flex; }
 
-    .menu-panel {
-      text-align: center; padding: 24px;
-    }
+    .menu-panel { text-align: center; padding: 24px; }
     .menu-title {
       font-family: Cinzel, serif; letter-spacing: .12em; text-transform: uppercase;
       font-size: 14px; opacity: .7; margin-bottom: 18px;
@@ -190,7 +294,7 @@
         <li><a class="menu-link" href="/astraphora/about.html">About</a></li>
         <li><a class="menu-link" href="/astraphora/support.html">Support</a></li>
         <li><a class="menu-link" href="/astraphora/contact.html">Contact</a></li>
-        <li><a class="menu-link" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe</a></li>
+        <li><a class="menu-link" href="/astraphora/subscribe.html">Subscribe</a></li>
       </ul>
       <button class="menu-close" id="menuClose" aria-label="Close menu">✕ Close</button>
     </div>
@@ -204,6 +308,17 @@
 
     <main>
       <section class="card" role="region" aria-live="polite" aria-atomic="true">
+        <!-- Category selector -->
+        <nav class="seg" role="tablist" aria-label="Choose affirmation category">
+          <button class="seg__btn is-active" role="tab" aria-selected="true" data-cat="all">✨ All</button>
+          <button class="seg__btn" role="tab" aria-selected="false" data-cat="money">💰 Abundance</button>
+          <button class="seg__btn" role="tab" aria-selected="false" data-cat="love">💗 Love</button>
+          <button class="seg__btn" role="tab" aria-selected="false" data-cat="health">🕊️ Health</button>
+          <button class="seg__btn" role="tab" aria-selected="false" data-cat="purpose">🌠 Purpose</button>
+
+
+        </nav>
+
         <div id="affirmation" class="affirmation" tabindex="-1">Loading your starlit message…</div>
         <p class="hint">Read aloud if it resonates. Breathe it in. Let it settle like starlight.</p>
 
@@ -223,15 +338,18 @@
   <script>
     /* ===== Safe storage helpers (handle iOS Private mode) ===== */
     const storage = {
-      get(key) { try { return window.localStorage.getItem(key); } catch { return null; } },
-      set(key, val) { try { window.localStorage.setItem(key, val); } catch {} }
+      get(key) {
+        try { return window.localStorage.getItem(key); }
+        catch { return null; }
+      },
+      set(key, val) {
+        try { window.localStorage.setItem(key, val); }
+        catch { /* no-op: fallback to memory only */ }
+      }
     };
 
-    /* ===== Utilities ===== */
-    const $ = sel => document.querySelector(sel);
-
-    /* ===== Affirmations ===== */
-    const AFFIRMATIONS = [
+    /* ===== Affirmations by Category ===== */
+    const AFFIRMATIONS_GENERAL = [
       "I am aligned with the rhythm of the cosmos.",
       "Abundance flows to me like starlight.",
       "I trust divine timing and move with grace.",
@@ -321,42 +439,459 @@
       "I am safe, loved, and becoming."
     ];
 
-    /* ===== Shuffle Logic (non-repeating until deck reset) ===== */
-    let deck = []; let index = 0;
+    /* ============================================================
+       💰 MONEY & ABUNDANCE — ASTRAPHORA AFFIRMATIONS
+       Theme: Divine provision, peace, and stewardship through God-centered alignment.
+       ============================================================ */
+    const AFFIRMATIONS_MONEY = [
+      "I am aligned with God’s divine provision.",
+      "I am open to receiving blessings prepared for me.",
+      "I am guided by peace, not pressure.",
+      "I am worthy of abundance that serves my highest purpose.",
+      "I am walking in rhythm with divine timing.",
+      "I am surrounded by opportunities sent by God’s hand.",
+      "I am held in the flow of grace and sufficiency.",
+      "I am capable of managing wealth with wisdom and love.",
+      "I am calm and confident in my financial journey.",
+      "I am a vessel through which God’s blessings flow.",
+      "I am receptive to increase without anxiety.",
+      "I am grateful for every form of provision.",
+      "I am walking in abundance that honors God.",
+      "I am at peace with both giving and receiving.",
+      "I am attracting resources that align with integrity.",
+      "I am in partnership with divine purpose.",
+      "I am becoming a faithful steward of all I hold.",
+      "I am releasing fear and stepping into trust.",
+      "I am expanding in faith, not in striving.",
+      "I am content and confident in divine timing.",
+      "I am surrounded by favor that cannot be earned or lost.",
+      "I am living in gratitude for what already is.",
+      "I am financially free through faith and wisdom.",
+      "I am chosen for increase that uplifts others.",
+      "I am guided toward what multiplies peace, not stress.",
+      "I am blessed beyond my understanding.",
+      "I am resting in the assurance that all is provided.",
+      "I am the calm keeper of sacred abundance.",
+      "I am a magnet for resources that carry light.",
+      "I am led by God in every financial decision.",
+      "I am safe to prosper with humility.",
+      "I am grateful for the flow of money that supports my mission.",
+      "I am walking in divine order — nothing forced, nothing missing.",
+      "I am aligned with opportunities that feel peaceful and true.",
+      "I am a faithful builder of what I’ve been entrusted with.",
+      "I am grateful for the hands that help my dreams unfold.",
+      "I am living proof that faith brings forth provision.",
+      "I am walking in quiet confidence that my needs are met.",
+      "I am deserving of ease, rest, and overflow.",
+      "I am anchored in gratitude for every small miracle.",
+      "I am capable of turning ideas into divine increase.",
+      "I am at peace with money — it moves through me freely.",
+      "I am open to divine creativity that generates wealth.",
+      "I am grateful for doors that open without striving.",
+      "I am grounded in patience as abundance unfolds.",
+      "I am aligned with divine opportunities for growth.",
+      "I am living in divine rhythm, not worldly rush.",
+      "I am wise enough to handle greater blessings.",
+      "I am secure in knowing I am always provided for.",
+      "I am at rest in the flow of divine prosperity.",
+      "I am surrounded by people who honor generosity.",
+      "I am in alignment with the good God has planned for me.",
+      "I am grateful for work that fulfills and sustains me.",
+      "I am open to new streams of income guided by peace.",
+      "I am humble enough to receive more.",
+      "I am becoming more capable of handling overflow.",
+      "I am calm while waiting for divine timing.",
+      "I am aligned with financial stability rooted in faith.",
+      "I am generous because I trust there will always be more.",
+      "I am grateful for divine favor in my finances.",
+      "I am open to wealth that feels holy and peaceful.",
+      "I am walking in abundance without attachment.",
+      "I am releasing every belief in scarcity.",
+      "I am expanding without losing my grounding.",
+      "I am patient while God arranges my blessings.",
+      "I am receptive to increase that supports my calling.",
+      "I am thankful for unseen blessings already on their way.",
+      "I am aligned with the energy of divine generosity.",
+      "I am worthy of living free from financial worry.",
+      "I am safe in the hands of divine provision.",
+      "I am stepping into overflow with reverence.",
+      "I am guided to make wise and peaceful choices.",
+      "I am becoming more confident with every blessing I receive.",
+      "I am open to creative inspiration that leads to income.",
+      "I am trusting that every need is already met.",
+      "I am walking by faith, not fear.",
+      "I am capable of multiplying what I have been given.",
+      "I am content with what I have while expecting more.",
+      "I am aligned with God’s rhythm of expansion.",
+      "I am worthy of blessings that match my purpose.",
+      "I am walking in divine favor that cannot fade.",
+      "I am grateful for every lesson that led to increase.",
+      "I am protected from financial harm or misuse.",
+      "I am aligned with honest and peaceful prosperity.",
+      "I am thankful for God’s guidance in every opportunity.",
+      "I am steady in spirit even when resources shift.",
+      "I am patient while blessings are still forming.",
+      "I am open to unexpected abundance.",
+      "I am safe to dream bigger without fear.",
+      "I am guided by divine peace in all financial matters.",
+      "I am worthy of overflow that allows me to give freely.",
+      "I am ready for abundance that feels gentle and right.",
+      "I am secure in God’s endless provision.",
+      "I am living in gratitude for what is yet unseen.",
+      "I am growing into a wise and generous steward.",
+      "I am a reflection of divine abundance in motion.",
+      "I am open, peaceful, and prepared for increase.",
+      "I am surrounded by divine order in my finances.",
+      "I am resting in grace that multiplies naturally.",
+      "I am thankful for the sacred flow of abundance that sustains me."
+    ];
 
-    function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-    function resetDeck(){ deck=shuffle(AFFIRMATIONS); index=0; storage.set('astraphora_deck', JSON.stringify(deck)); storage.set('astraphora_index', index.toString()); }
-    function loadDeck(){
-      const savedDeck = storage.get('astraphora_deck'); const savedIdx = storage.get('astraphora_index');
-      if(savedDeck){ try{ deck=JSON.parse(savedDeck); index=Math.min(parseInt(savedIdx||'0',10)||0, Math.max(deck.length-1,0)); if(deck.length!==AFFIRMATIONS.length) resetDeck(); return; } catch{} }
+    /* ============================================================
+       💗 LOVE & RELATIONSHIPS — ASTRAPHORA AFFIRMATIONS
+       Theme: Divine love, healthy connection, emotional peace, and self-worth.
+       ============================================================ */
+    const AFFIRMATIONS_LOVE = [
+      "I am worthy of love that is steady and kind.",
+      "I am open to love that reflects God’s peace.",
+      "I am attracting relationships rooted in truth and grace.",
+      "I am learning to give and receive love freely.",
+      "I am guided toward people who love with honesty.",
+      "I am safe to open my heart again.",
+      "I am worthy of a love that stays.",
+      "I am a reflection of the love I hope to receive.",
+      "I am patient with the unfolding of divine connection.",
+      "I am grateful for love that feels gentle and grounded.",
+      "I am healing from what once hurt me.",
+      "I am surrounded by relationships that honor my soul.",
+      "I am loved beyond measure by God and those meant for me.",
+      "I am at peace with love’s timing.",
+      "I am whole on my own, yet open to companionship.",
+      "I am deserving of deep, mutual affection.",
+      "I am letting go of what no longer aligns with my spirit.",
+      "I am attracting love that mirrors my growth.",
+      "I am learning that boundaries are holy.",
+      "I am cherished by people who see my heart clearly.",
+      "I am capable of giving love without losing myself.",
+      "I am free from fear in matters of the heart.",
+      "I am worthy of love that honors my boundaries.",
+      "I am magnetic to relationships filled with peace.",
+      "I am patient while divine love finds its way to me.",
+      "I am healing patterns that kept me small.",
+      "I am safe to love again without fear of loss.",
+      "I am open to loving connections that grow with me.",
+      "I am releasing the need to chase love.",
+      "I am grateful for relationships that bring joy and growth.",
+      "I am surrounded by people who love me for who I truly am.",
+      "I am learning to love myself as deeply as I love others.",
+      "I am in alignment with divine harmony in my relationships.",
+      "I am loved, chosen, and protected by grace.",
+      "I am allowing healthy love to stay.",
+      "I am learning to receive love with ease.",
+      "I am becoming the kind of love I wish to find.",
+      "I am open to reconciliation where healing is possible.",
+      "I am grateful for the lessons love has taught me.",
+      "I am surrounded by souls that nourish my heart.",
+      "I am at peace with relationships that have ended.",
+      "I am still lovable even when I am healing.",
+      "I am ready for love that grows through every season.",
+      "I am walking in forgiveness for myself and others.",
+      "I am guided toward relationships ordained for me.",
+      "I am clear about the kind of love I desire.",
+      "I am no longer shrinking to be loved.",
+      "I am confident in my ability to love well.",
+      "I am radiant with the light of divine love.",
+      "I am open to connections built on trust and respect.",
+      "I am attracting love that feels like home.",
+      "I am ready for relationships that feel safe and kind.",
+      "I am grateful for the companionship of kindred souls.",
+      "I am letting God shape the love that enters my life.",
+      "I am patient while true love prepares itself for me.",
+      "I am at peace with being alone while I grow.",
+      "I am content within my own heart.",
+      "I am surrounded by loving energy in all forms.",
+      "I am learning that vulnerability is strength.",
+      "I am open to love that uplifts and sustains me.",
+      "I am rooted in self-respect and divine worthiness.",
+      "I am no longer repeating the patterns of the past.",
+      "I am capable of healthy, balanced love.",
+      "I am growing into a partner who loves with patience and faith.",
+      "I am grateful for the love that remains even through distance.",
+      "I am centered in peace when I think of love.",
+      "I am surrounded by divine order in my relationships.",
+      "I am loved for my soul, not my performance.",
+      "I am worthy of being chosen again and again.",
+      "I am releasing attachments that keep me from peace.",
+      "I am a reflection of God’s compassion in every relationship.",
+      "I am drawn to love that feels honest and safe.",
+      "I am patient as divine connections unfold.",
+      "I am grateful for the people who love me sincerely.",
+      "I am open to new beginnings in love.",
+      "I am ready to experience partnership as divine harmony.",
+      "I am safe to express my needs clearly and lovingly.",
+      "I am deserving of love that honors both giving and rest.",
+      "I am at peace with who I am becoming in love.",
+      "I am releasing all comparison in relationships.",
+      "I am gentle with my heart as it heals.",
+      "I am surrounded by divine guidance in matters of love.",
+      "I am learning that endings can also be blessings.",
+      "I am free to love again without fear of heartbreak.",
+      "I am aligned with relationships built on mutual respect.",
+      "I am grateful for those who have shown me unconditional love.",
+      "I am patient while love deepens naturally.",
+      "I am surrounded by tenderness and trust.",
+      "I am open to love that is divinely orchestrated.",
+      "I am allowing peace to guide my connections.",
+      "I am grounded in the belief that I am enough.",
+      "I am open to love that complements my purpose.",
+      "I am grateful for the ways love continues to refine me.",
+      "I am capable of deep emotional connection without fear.",
+      "I am safe to be fully seen and fully loved.",
+      "I am learning that true love never demands that I shrink.",
+      "I am surrounded by relationships that reflect divine order.",
+      "I am open to love that teaches, heals, and sustains.",
+      "I am grateful for love in every form it arrives.",
+      "I am resting in the knowledge that love always finds its way to me."
+    ];
+    
+    /* ============================================================
+   🕊️ HEALTH & HEALING — ASTRAPHORA AFFIRMATIONS
+   ============================================================ */
+const AFFIRMATIONS_HEALTH = [
+  "I am restored by God’s peace, breath by breath.",
+  "I am safe in a body that is healing and whole.",
+  "I am receptive to habits that nourish my strength.",
+  "I am patient with my body’s sacred pace.",
+  "I am cared for in every cell and every system.",
+  "I am guided to choices that honor my health.",
+  "I am releasing stress and welcoming gentle energy.",
+  "I am grateful for the steady renewal within me.",
+  "I am held by grace as my body heals and strengthens.",
+  "I am calm, resilient, and divinely supported."
+];
+
+/* ============================================================
+   🌠 PURPOSE & CALLING — ASTRAPHORA AFFIRMATIONS
+   Theme: Divine direction, meaningful work, service through faith, and calm confidence in one’s purpose.
+   ============================================================ */
+const AFFIRMATIONS_PURPOSE = [
+  "I am walking in divine alignment with my purpose.",
+  "I am guided by God’s light in every decision I make.",
+  "I am becoming exactly who I was created to be.",
+  "I am calm and confident in my divine calling.",
+  "I am open to the path God reveals one step at a time.",
+  "I am fulfilling my purpose with peace and grace.",
+  "I am led by wisdom that cannot be shaken.",
+  "I am walking boldly in the direction of my calling.",
+  "I am prepared for every opportunity God places before me.",
+  "I am a vessel for light, truth, and purpose.",
+  "I am grateful for the calling that awakens my spirit.",
+  "I am walking by faith, not by sight.",
+  "I am aligned with work that reflects divine intention.",
+  "I am guided by a higher plan that unfolds perfectly.",
+  "I am becoming more attuned to what brings peace and meaning.",
+  "I am willing to be shaped for my purpose.",
+  "I am called to make a difference in quiet and powerful ways.",
+  "I am steady in my purpose even when the path feels unclear.",
+  "I am guided to people who help me fulfill my mission.",
+  "I am patient while my calling takes form.",
+  "I am equipped for the work I have been given.",
+  "I am led by clarity, not comparison.",
+  "I am walking the path designed specifically for me.",
+  "I am grateful for the lessons that prepared me for this season.",
+  "I am faithful with the responsibilities entrusted to me.",
+  "I am aligned with work that nourishes my soul.",
+  "I am a reflection of God’s purpose in motion.",
+  "I am peaceful knowing that divine timing governs my steps.",
+  "I am willing to serve where I am needed most.",
+  "I am open to growth that brings me closer to my purpose.",
+  "I am confident in the gifts I’ve been given.",
+  "I am a faithful steward of my talents.",
+  "I am walking in obedience to God’s quiet nudges.",
+  "I am guided by divine wisdom that surpasses logic.",
+  "I am growing into the fullness of my potential.",
+  "I am led by peace when discerning my next step.",
+  "I am content in the season I am in.",
+  "I am becoming more aware of how I am meant to serve.",
+  "I am grateful for the opportunities to live with purpose.",
+  "I am steadfast in my calling even when unseen.",
+  "I am a light in the space I occupy.",
+  "I am walking in harmony with God’s will for my life.",
+  "I am open to creative expressions of my purpose.",
+  "I am trusting that every detour holds meaning.",
+  "I am patient with the timing of my unfolding purpose.",
+  "I am prepared for divine assignments with ease and grace.",
+  "I am stepping into the highest expression of who I am.",
+  "I am walking a path that blesses others through my gifts.",
+  "I am calm and confident in the mission placed within me.",
+  "I am guided by faith when logic cannot see the way.",
+  "I am strong enough to carry the vision placed in my heart.",
+  "I am a living expression of divine creativity.",
+  "I am connected to my purpose through gratitude.",
+  "I am trusting that God is orchestrating every step I take.",
+  "I am walking in alignment with divine favor.",
+  "I am doing meaningful work that uplifts and inspires.",
+  "I am devoted to becoming who God designed me to be.",
+  "I am open to being refined through my journey.",
+  "I am peaceful even when my next step is unknown.",
+  "I am grateful for the gifts I have been entrusted with.",
+  "I am walking with courage and conviction toward my calling.",
+  "I am prepared to rise into every opportunity meant for me.",
+  "I am aligned with divine purpose in every season of life.",
+  "I am anchored in faith that my work matters.",
+  "I am exactly where I need to be to grow.",
+  "I am listening for divine instruction with an open heart.",
+  "I am surrounded by support as I live out my calling.",
+  "I am becoming the answer to someone’s prayer.",
+  "I am grateful that my path is unfolding perfectly.",
+  "I am walking with purpose that glorifies God.",
+  "I am open to new directions led by peace.",
+  "I am confident in the gifts I’ve been given to serve others.",
+  "I am not behind; I am exactly on time in divine order.",
+  "I am walking faithfully toward the next right thing.",
+  "I am guided by discernment, not distraction.",
+  "I am becoming more aligned with my calling every day.",
+  "I am prepared for growth that stretches but does not break me.",
+  "I am rooted in faith and expanding through purpose.",
+  "I am clear that my calling is greater than my fear.",
+  "I am grateful for divine assignments that challenge me to grow.",
+  "I am open to opportunities that reflect my heart’s truth.",
+  "I am walking with humility in my purpose.",
+  "I am capable of completing every task God has given me.",
+  "I am trusting that even small steps create divine impact.",
+  "I am guided to speak and act with clarity and grace.",
+  "I am open to unexpected paths that lead to fulfillment.",
+  "I am confident that what’s meant for me will not pass me by.",
+  "I am becoming more peaceful in my pursuit of purpose.",
+  "I am living as a vessel of divine inspiration.",
+  "I am calm in knowing that my calling cannot be rushed.",
+  "I am grateful for every open door that aligns with truth.",
+  "I am led by faith through every season of purpose.",
+  "I am courageous enough to answer the call.",
+  "I am walking in rhythm with God’s intention for my life.",
+  "I am capable of turning inspiration into action.",
+  "I am grateful that purpose unfolds gently, not urgently.",
+  "I am guided to places where my gifts make a difference.",
+  "I am standing firm in faith, even when I cannot see the way.",
+  "I am a vessel of service and divine creativity.",
+  "I am grateful for the strength to continue walking in purpose.",
+  "I am open to divine redirection that aligns me deeper with my calling.",
+  "I am at peace knowing that my purpose is unfolding in perfect time.",
+  "I am walking boldly in faith, trusting that every step is sacred."
+];
+
+
+
+    /* Build the 'All' category */
+    const AFFIRMATIONS_ALL = [
+      ...AFFIRMATIONS_GENERAL,
+      ...AFFIRMATIONS_MONEY,
+      ...AFFIRMATIONS_LOVE,
+      ...AFFIRMATIONS_HEALTH,
+      ...AFFIRMATIONS_PURPOSE
+    ];
+
+    /* Category registry */
+    const CATEGORIES = {
+      all: AFFIRMATIONS_ALL,
+      money: AFFIRMATIONS_MONEY,
+      love: AFFIRMATIONS_LOVE,
+      health: AFFIRMATIONS_HEALTH,
+      purpose: AFFIRMATIONS_PURPOSE
+    };
+
+    /* ===== Utilities ===== */
+    const $ = sel => document.querySelector(sel);
+
+    /* ===== Shuffle Logic (non-repeating until deck reset), per category ===== */
+    let currentCategory = storage.get('astraphora_cat') || 'all';
+    let deck = [];
+    let index = 0;
+
+    function getActiveAffirmations() {
+      return CATEGORIES[currentCategory] || CATEGORIES.all;
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function resetDeck() {
+      deck = shuffle(getActiveAffirmations());
+      index = 0;
+      storage.set('astraphora_deck', JSON.stringify(deck));
+      storage.set('astraphora_index', index.toString());
+      storage.set('astraphora_cat', currentCategory);
+    }
+
+    function loadDeck() {
+      const savedCat = storage.get('astraphora_cat');
+      if (savedCat && savedCat !== currentCategory) {
+        resetDeck();
+        return;
+      }
+      const savedDeck = storage.get('astraphora_deck');
+      const savedIdx  = storage.get('astraphora_index');
+      if (savedDeck) {
+        try {
+          const parsed = JSON.parse(savedDeck);
+          if (!parsed?.length || parsed.length !== getActiveAffirmations().length) {
+            resetDeck();
+            return;
+          }
+          deck = parsed;
+          index = Math.min(parseInt(savedIdx || '0', 10) || 0, Math.max(deck.length - 1, 0));
+          return;
+        } catch {
+          /* corrupted storage; reset */
+        }
+      }
       resetDeck();
     }
-    function nextAffirmation(){
-      if(!deck.length) resetDeck();
+
+    function nextAffirmation() {
+      if (!deck.length) resetDeck();
       const text = deck[index];
       index = (index + 1) % deck.length;
-      if(index===0){ resetDeck(); } else { storage.set('astraphora_index', index.toString()); }
+      if (index === 0) {
+        resetDeck(); // reshuffle on wrap
+      } else {
+        storage.set('astraphora_index', index.toString());
+      }
       renderAffirmation(text);
     }
 
     /* ===== UI ===== */
-    const affirmationEl = $('#affirmation');
-    const nextBtn = $('#nextBtn');
-    const shuffleBtn = $('#shuffleBtn');
+    const affirmationEl = document.getElementById('affirmation');
+    const nextBtn       = document.getElementById('nextBtn');
+    const shuffleBtn    = document.getElementById('shuffleBtn');
 
-    function renderAffirmation(text){
+    function renderAffirmation(text) {
       affirmationEl.classList.remove('visible');
-      setTimeout(()=>{ affirmationEl.textContent=text; affirmationEl.classList.add('visible'); affirmationEl.focus({preventScroll:true}); },160);
+      setTimeout(() => {
+        affirmationEl.textContent = text;
+        affirmationEl.classList.add('visible');
+        affirmationEl.focus({ preventScroll: true });
+      }, 160);
     }
-    function handleAdvance(){ nextAffirmation(); }
 
-    // Tap anywhere to advance, but ignore taps inside menu or buttons
-    function tapAnywhere(e){
-      if (e.target.closest('.btn, .menu-btn, .menu-overlay')) return;
+    function handleAdvance() { nextAffirmation(); }
+
+    // Tap anywhere to advance, but ignore taps inside menu, buttons, or category selector
+    function tapAnywhere(e) {
+      if (e.target.closest('.btn, .menu-btn, .menu-overlay, .seg')) return;
       handleAdvance();
     }
-    function keyAdvance(e){
-      if (e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); handleAdvance(); }
+
+    function keyAdvance(e) {
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        handleAdvance();
+      }
     }
 
     // === Menu logic ===
@@ -382,19 +917,44 @@
     });
     menuClose.addEventListener('click', closeMenu);
     menuOverlay.addEventListener('click', (e)=> {
-      // Close if clicking outside panel or on a link
       if (e.target === menuOverlay || e.target.matches('.menu-link')) closeMenu();
     });
     document.addEventListener('keydown', (e)=> {
       if (e.key === 'Escape' && menuOverlay.classList.contains('active')) closeMenu();
     });
 
-    (function init(){
+    /* Category UI hookup */
+    const seg = document.querySelector('.seg');
+    function setActiveSeg(cat) {
+      document.querySelectorAll('.seg__btn').forEach(btn => {
+        const active = btn.dataset.cat === cat;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+    }
+
+    seg.addEventListener('click', (e) => {
+      const btn = e.target.closest('.seg__btn');
+      if (!btn) return;
+      const cat = btn.dataset.cat;
+      if (!cat || cat === currentCategory) return;
+      currentCategory = cat;
+      setActiveSeg(currentCategory);
+      resetDeck();
+      renderAffirmation(deck[index]);
+      e.stopPropagation(); // don’t trigger tap-anywhere
+    });
+
+    (function init() {
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Initialize selector state from storage
+      setActiveSeg(currentCategory);
+
       loadDeck();
       renderAffirmation(deck[index]);
       nextBtn.addEventListener('click', handleAdvance);
-      shuffleBtn.addEventListener('click', ()=>{ resetDeck(); renderAffirmation(deck[index]); });
+      shuffleBtn.addEventListener('click', () => { resetDeck(); renderAffirmation(deck[index]); });
       document.addEventListener('click', tapAnywhere, { passive: true });
       document.addEventListener('keydown', keyAdvance, { passive: false });
     })();
