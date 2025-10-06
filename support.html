@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Support • Astraphora</title>
+  <meta name="theme-color" content="#0a0714" />
+  <meta name="description" content="Support Astraphora and help keep the light flowing for mindful moments and manifestation." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{min-height:100svh;background:#06040b;color:#f6f4ff;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans";
+      -webkit-font-smoothing:antialiased;line-height:1.6}
+    .bg{position:fixed;inset:0;z-index:0;overflow:hidden;
+      background:radial-gradient(1200px 800px at 70% 20%,rgba(111,66,193,.15),transparent 60%),
+                 radial-gradient(900px 700px at 20% 80%,rgba(0,166,255,.12),transparent 60%),
+                 linear-gradient(180deg,#05030a 0%,#0a0714 60%,#04020a 100%)}
+    .stars,.stars2,.stars3{position:absolute;inset:-2000px 0 0 0;background-repeat:repeat;animation:drift 180s linear infinite;pointer-events:none;filter:drop-shadow(0 0 2px rgba(255,255,255,.35))}
+    .stars{background-image:radial-gradient(2px 2px at 20px 30px,#fff,rgba(255,255,255,0));background-size:200px 200px;opacity:.4}
+    .stars2{background-image:radial-gradient(1.5px 1.5px at 60px 80px,#b9a8ff,rgba(255,255,255,0));background-size:240px 240px;opacity:.35;animation-duration:240s}
+    .stars3{background-image:radial-gradient(1px 1px at 100px 140px,#9ad0ff,rgba(255,255,255,0));background-size:260px 260px;opacity:.3;animation-duration:300s}
+    @keyframes drift{from{transform:translateY(0)}to{transform:translateY(200px)}}
+    .wrap{position:relative;z-index:1;min-height:100svh;display:grid;grid-template-rows:auto 1fr auto}
+    header{text-align:center;padding:64px 16px 8px}
+    .brand{font-family:Cinzel,serif;letter-spacing:.18em;text-transform:uppercase;font-weight:600;font-size:clamp(18px,5vw,28px);color:#eae6ff;text-shadow:0 0 18px rgba(140,84,255,.35)}
+    .tagline{margin-top:4px;font-size:13px;opacity:.7;letter-spacing:.08em}
+    main{display:grid;place-items:center;padding:24px 16px}
+    .card{width:min(860px,92vw);border-radius:18px;padding:clamp(20px,5vw,36px);
+      background:rgba(12,8,22,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      border:1px solid rgba(150,120,255,.18);box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 40px rgba(110,50,200,.08)}
+    h1{font-family:Cinzel,serif;text-transform:uppercase;letter-spacing:.1em;font-size:clamp(18px,3.6vw,22px);margin:0 0 12px}
+    p{margin:8px 0;color:#efeaff}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:999px;
+      border:1px solid rgba(173,140,255,.35);background:radial-gradient(120% 220% at 50% 0%,rgba(129,97,255,.35),rgba(39,18,66,.6));
+      color:#fff;text-decoration:none;font-weight:600;letter-spacing:.04em;box-shadow:0 8px 24px rgba(76,36,140,.35)}
+    footer{text-align:center;font-size:12px;opacity:.55;padding:18px 16px 26px}
+    .menu-btn{position:fixed;top:16px;right:16px;width:42px;height:42px;display:grid;place-items:center;border-radius:999px;
+      background:rgba(30,20,55,.6);border:1px solid rgba(173,140,255,.35);color:#e9e3ff;font-size:20px;line-height:1;cursor:pointer;z-index:50;box-shadow:0 6px 18px rgba(76,36,140,.35)}
+    .menu-overlay{position:fixed;inset:0;z-index:49;display:none;align-items:center;justify-content:center;background:rgba(8,5,18,.92);backdrop-filter:blur(12px)}
+    .menu-overlay.active{display:flex}
+    .menu-panel{text-align:center;padding:24px}
+    .menu-list{list-style:none;padding:0;margin:0}
+    .menu-list li{margin:12px 0}
+    .menu-link{color:#f3efff;text-decoration:none;font-family:Cinzel,serif;font-size:1.2rem}
+    .menu-close{margin-top:22px;display:inline-flex;gap:8px;border:1px solid rgba(173,140,255,.35);background:rgba(30,20,55,.6);color:#fff;border-radius:999px;padding:10px 14px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><div class="stars"></div><div class="stars2"></div><div class="stars3"></div></div>
+
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  <nav class="menu-overlay" id="menuOverlay" aria-hidden="true">
+    <div class="menu-panel">
+      <ul class="menu-list">
+        <li><a class="menu-link" href="/astraphora/">Home</a></li>
+        <li><a class="menu-link" href="/astraphora/about.html">About</a></li>
+        <li><a class="menu-link" href="/astraphora/support.html">Support</a></li>
+        <li><a class="menu-link" href="/astraphora/contact.html">Contact</a></li>
+        <li><a class="menu-link" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe</a></li>
+      </ul>
+      <button class="menu-close" id="menuClose">✕ Close</button>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">ASTRAPHORA</div>
+      <div class="tagline">a celestial affirmation companion</div>
+    </header>
+
+    <main>
+      <article class="card">
+        <h1>Support Astraphora</h1>
+        <p>Astraphora is an independent creation—built from quiet nights, long coding sessions, and a belief in gentle ritual.</p>
+        <p>If you’d like to help it grow, your support keeps the stars shining:</p>
+        <p><a class="btn" href="https://pay.bluevine.com/p/b2704eacb94d4c5e85907980e9a85547/pay/" target="_blank" rel="noopener">☾ Donate</a></p>
+        <p>Each contribution helps expand Astraphora’s affirmations, develop the future mobile app, and sustain creative time for writing and updates.</p>
+        <p class="muted">Thank you for helping light travel a little farther.</p>
+      </article>
+    </main>
+
+    <footer>© <span id="year"></span> Neeli Faulkner. All rights reserved. Astraphora™</footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuBtn=document.getElementById('menuBtn'),menuOverlay=document.getElementById('menuOverlay'),menuClose=document.getElementById('menuClose');
+    function openMenu(){menuOverlay.classList.add('active');menuBtn.setAttribute('aria-expanded','true');}
+    function closeMenu(){menuOverlay.classList.remove('active');menuBtn.setAttribute('aria-expanded','false');}
+    menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('active')?closeMenu():openMenu());
+    menuClose.addEventListener('click',closeMenu);
+    menuOverlay.addEventListener('click',e=>{if(e.target===menuOverlay||e.target.matches('.menu-link'))closeMenu();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOverlay.classList.contains('active'))closeMenu();});
+  </script>
+</body>
+</html>
