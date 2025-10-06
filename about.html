@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About • Astraphora</title>
+  <meta name="theme-color" content="#0a0714" />
+  <meta name="description" content="About Astraphora — a celestial affirmation companion created by Neeli Faulkner." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      min-height:100svh;background:#06040b;color:#f6f4ff;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans";
+      -webkit-font-smoothing:antialiased;line-height:1.6
+    }
+
+    /* Background */
+    .bg{position:fixed;inset:0;z-index:0;overflow:hidden;
+      background:
+        radial-gradient(1200px 800px at 70% 20%, rgba(111,66,193,.15), transparent 60%),
+        radial-gradient(900px 700px at 20% 80%, rgba(0,166,255,.12), transparent 60%),
+        linear-gradient(180deg,#05030a 0%,#0a0714 60%,#04020a 100%)
+    }
+    .stars,.stars2,.stars3{
+      position:absolute;inset:-2000px 0 0 0;background-repeat:repeat;animation:drift 180s linear infinite;
+      pointer-events:none;filter:drop-shadow(0 0 2px rgba(255,255,255,.35))
+    }
+    .stars{background-image:radial-gradient(2px 2px at 20px 30px,#fff,rgba(255,255,255,0));background-size:200px 200px;opacity:.4}
+    .stars2{background-image:radial-gradient(1.5px 1.5px at 60px 80px,#b9a8ff,rgba(255,255,255,0));background-size:240px 240px;opacity:.35;animation-duration:240s}
+    .stars3{background-image:radial-gradient(1px 1px at 100px 140px,#9ad0ff,rgba(255,255,255,0));background-size:260px 260px;opacity:.3;animation-duration:300s}
+    @keyframes drift{from{transform:translateY(0)}to{transform:translateY(200px)}}
+
+    /* Layout */
+    .wrap{position:relative;z-index:1;min-height:100svh;display:grid;grid-template-rows:auto 1fr auto}
+    header{text-align:center;padding:64px 16px 8px}
+    .brand{font-family:Cinzel,serif;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+      font-size:clamp(18px,5vw,28px);color:#eae6ff;text-shadow:0 0 18px rgba(140,84,255,.35)}
+    .tagline{margin-top:4px;font-size:13px;opacity:.7;letter-spacing:.08em}
+
+    main{display:grid;place-items:center;padding:24px 16px}
+    .card{
+      width:min(860px,92vw);border-radius:18px;padding:clamp(20px,5vw,36px);
+      background:rgba(12,8,22,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      border:1px solid rgba(150,120,255,.18);box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 40px rgba(110,50,200,.08)
+    }
+
+    h1{font-family:Cinzel,serif;letter-spacing:.1em;text-transform:uppercase;font-size:clamp(18px,3.6vw,22px);margin:0 0 12px}
+    h2{font-family:Cinzel,serif;font-size:clamp(16px,3.2vw,20px);margin:28px 0 10px;letter-spacing:.06em;color:#e9e3ff}
+    p{margin:8px 0;color:#efeaff}
+    .lead{opacity:.85}
+    .muted{opacity:.7}
+    .row{display:grid;gap:16px}
+    @media (min-width:720px){ .row{grid-template-columns:1fr 1fr} }
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 16px;border-radius:999px;border:1px solid rgba(173,140,255,.35);
+      background:radial-gradient(120% 220% at 50% 0%, rgba(129,97,255,.35), rgba(39,18,66,.6));
+      color:#fff;text-decoration:none;font-weight:600;letter-spacing:.04em;box-shadow:0 8px 24px rgba(76,36,140,.35)
+    }
+    .btn:focus-visible{outline:2px solid #c1a7ff;outline-offset:3px}
+
+    footer{text-align:center;font-size:12px;opacity:.55;padding:18px 16px 26px}
+
+    /* Menu */
+    .menu-btn{
+      position:fixed;top:16px;right:16px;width:42px;height:42px;display:grid;place-items:center;border-radius:999px;
+      background:rgba(30,20,55,.6);border:1px solid rgba(173,140,255,.35);color:#e9e3ff;font-size:20px;line-height:1;
+      cursor:pointer;z-index:50;box-shadow:0 6px 18px rgba(76,36,140,.35);text-shadow:0 0 10px rgba(150,100,255,.5)
+    }
+    .menu-btn:focus-visible{outline:2px solid #c1a7ff;outline-offset:3px}
+    .menu-overlay{
+      position:fixed;inset:0;z-index:49;display:none;align-items:center;justify-content:center;
+      background:rgba(8,5,18,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
+    }
+    .menu-overlay.active{display:flex}
+    .menu-panel{text-align:center;padding:24px}
+    .menu-title{font-family:Cinzel,serif;letter-spacing:.12em;text-transform:uppercase;font-size:14px;opacity:.7;margin-bottom:18px}
+    .menu-list{list-style:none;padding:0;margin:0}
+    .menu-list li{margin:12px 0}
+    .menu-link{color:#f3efff;text-decoration:none;font-family:Cinzel,serif;font-size:1.2rem;letter-spacing:.04em;text-shadow:0 0 12px rgba(130,90,255,.3)}
+    .menu-close{margin-top:22px;display:inline-flex;gap:8px;border:1px solid rgba(173,140,255,.35);background:rgba(30,20,55,.6);color:#fff;border-radius:999px;padding:10px 14px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="stars"></div><div class="stars2"></div><div class="stars3"></div>
+  </div>
+
+  <!-- Hamburger -->
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  <nav class="menu-overlay" id="menuOverlay" aria-hidden="true">
+    <div class="menu-panel" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="menu-title">Astraphora</div>
+      <ul class="menu-list">
+        <li><a class="menu-link" href="/astraphora/">Home</a></li>
+        <li><a class="menu-link" href="/astraphora/about.html">About</a></li>
+        <li><a class="menu-link" href="/astraphora/support.html">Support</a></li>
+        <li><a class="menu-link" href="/astraphora/contact.html">Contact</a></li>
+        <li><a class="menu-link" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe</a></li>
+      </ul>
+      <button class="menu-close" id="menuClose" aria-label="Close menu">✕ Close</button>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">ASTRAPHORA</div>
+      <div class="tagline">a celestial affirmation companion</div>
+    </header>
+
+    <main>
+      <article class="card">
+        <h1>About Astraphora</h1>
+        <p class="lead">
+          Astraphora is a quiet corner of the internet—an intentional space to pause, breathe, and speak to yourself with gentleness.
+          Each affirmation is a small star to navigate by.
+        </p>
+
+        <h2>The Vision</h2>
+        <p>
+          In a noisy world, Astraphora offers a minimal, moody sanctuary for mindful manifestation. One line at a time, it invites you
+          to return to what’s steady: breath, presence, and inner knowing.
+        </p>
+
+        <h2>The Name</h2>
+        <p class="muted">
+          <em>Astraphora</em> evokes the feeling of bearing stars—carrying light through darkness, and letting that light guide you home.
+        </p>
+
+        <div class="row">
+          <section>
+            <h2>The Creator</h2>
+            <p>
+              Created by <strong>Neeli Faulkner</strong>, investigative storyteller and founder of Murder Creek Media.
+              Astraphora is a personal practice turned public tool: a way to make space for clarity, courage, and soft expansion.
+            </p>
+            <p class="muted">© <span id="year"></span> Neeli Faulkner. All rights reserved.</p>
+          </section>
+
+          <section>
+            <h2>Stay Connected</h2>
+            <p>Receive a daily Astraphora—one starlit affirmation delivered to your inbox.</p>
+            <p>
+              <a class="btn" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe Free</a>
+            </p>
+            <p class="muted">Questions? <a href="mailto:neeli.faulkner@gmail.com" style="color:#e7dcff;text-decoration:underline">Email Neeli</a>.</p>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      © <span id="year2"></span> Neeli Faulkner. All rights reserved. Astraphora™
+    </footer>
+  </div>
+
+  <script>
+    // Year stamps
+    const y = new Date().getFullYear();
+    document.getElementById('year').textContent = y;
+    document.getElementById('year2').textContent = y;
+
+    // Menu logic
+    const menuBtn = document.getElementById('menuBtn');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuClose = document.getElementById('menuClose');
+
+    function openMenu(){ menuOverlay.classList.add('active'); menuOverlay.setAttribute('aria-hidden','false'); menuBtn.setAttribute('aria-expanded','true'); }
+    function closeMenu(){ menuOverlay.classList.remove('active'); menuOverlay.setAttribute('aria-hidden','true'); menuBtn.setAttribute('aria-expanded','false'); menuBtn.focus({preventScroll:true}); }
+
+    menuBtn.addEventListener('click', ()=> menuOverlay.classList.contains('active') ? closeMenu() : openMenu());
+    menuClose.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', (e)=> { if(e.target === menuOverlay || e.target.matches('.menu-link')) closeMenu(); });
+    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape' && menuOverlay.classList.contains('active')) closeMenu(); });
+  </script>
+</body>
+</html>
