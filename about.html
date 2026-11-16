@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About • Astraphora</title>
   <meta name="theme-color" content="#0a0714" />
-  <meta name="description" content="About Astraphora — a celestial affirmation companion created by Neeli Faulkner." />
+  <meta name="description" content="About Astraphora, a celestial affirmation companion and a quiet space for reflection." />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,16 +62,8 @@
     p{margin:8px 0;color:#efeaff}
     .lead{opacity:.85}
     .muted{opacity:.7}
-    .row{display:grid;gap:16px}
-    @media (min-width:720px){ .row{grid-template-columns:1fr 1fr} }
-
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 16px;border-radius:999px;border:1px solid rgba(173,140,255,.35);
-      background:radial-gradient(120% 220% at 50% 0%, rgba(129,97,255,.35), rgba(39,18,66,.6));
-      color:#fff;text-decoration:none;font-weight:600;letter-spacing:.04em;box-shadow:0 8px 24px rgba(76,36,140,.35)
-    }
-    .btn:focus-visible{outline:2px solid #c1a7ff;outline-offset:3px}
+    .contact-link{color:#e7dcff;text-decoration:underline}
+    .contact-link:focus-visible{outline:2px solid #c1a7ff;outline-offset:3px}
 
     footer{text-align:center;font-size:12px;opacity:.55;padding:18px 16px 26px}
 
@@ -99,11 +98,11 @@
     <div class="menu-panel" role="dialog" aria-modal="true" aria-label="Site menu">
       <div class="menu-title">Astraphora</div>
       <ul class="menu-list">
-  <li><a class="menu-link" href="./">Home</a></li>
-  <li><a class="menu-link" href="./about.html">About</a></li>
-  <li><a class="menu-link" href="./support.html">Support</a></li>
-  <li><a class="menu-link" href="./contact.html">Contact</a></li>
-</ul>
+        <li><a class="menu-link" href="./">Home</a></li>
+        <li><a class="menu-link" href="./about.html">About</a></li>
+        <li><a class="menu-link" href="./support.html">Support</a></li>
+        <li><a class="menu-link" href="./contact.html">Contact</a></li>
+      </ul>
       <button class="menu-close" id="menuClose" aria-label="Close menu">✕ Close</button>
     </div>
   </nav>
@@ -118,7 +117,7 @@
       <article class="card">
         <h1>About Astraphora</h1>
         <p class="lead">
-          Astraphora is a quiet corner of the internet—an intentional space to pause, breathe, and speak to yourself with gentleness.
+          Astraphora is a quiet corner of the internet, an intentional space to pause, breathe, and speak to yourself with gentleness.
           Each affirmation is a small star to navigate by.
         </p>
 
@@ -130,41 +129,25 @@
 
         <h2>The Name</h2>
         <p class="muted">
-          <em>Astraphora</em> evokes the feeling of bearing stars—carrying light through darkness, and letting that light guide you home.
+          <em>Astraphora</em> evokes the feeling of bearing stars, carrying light through darkness, and letting that light guide you home.
         </p>
 
-        <div class="row">
-          <section>
-            <h2>The Creator</h2>
-            <p>
-              Created by <strong>Neeli Faulkner</strong>, investigative storyteller and founder of Murder Creek Media.
-              Astraphora is a personal practice turned public tool: a way to make space for clarity, courage, and soft expansion.
-            </p>
-            <p class="muted">© <span id="year"></span> Neeli Faulkner. All rights reserved.</p>
-          </section>
-
-          <section>
-            <h2>Stay Connected</h2>
-            <p>Receive a daily Astraphora—one starlit affirmation delivered to your inbox.</p>
-            <p>
-              <a class="btn" href="http://eepurl.com/joTY9k" target="_blank" rel="noopener">Subscribe Free</a>
-            </p>
-            <p class="muted">Questions? <a href="mailto:neeli.faulkner@gmail.com" style="color:#e7dcff;text-decoration:underline">Email Neeli</a>.</p>
-          </section>
-        </div>
+        <h2>Contact</h2>
+        <p>
+          Questions or feedback? Reach us at
+          <a class="contact-link" href="mailto:astraphora@gmail.com">astraphora@gmail.com</a>.
+        </p>
       </article>
     </main>
 
     <footer>
-      © <span id="year2"></span> Neeli Faulkner. All rights reserved. Astraphora™
+      © <span id="year"></span> Astraphora™. All rights reserved.
     </footer>
   </div>
 
   <script>
-    // Year stamps
-    const y = new Date().getFullYear();
-    document.getElementById('year').textContent = y;
-    document.getElementById('year2').textContent = y;
+    // Year stamp
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     // Menu logic
     const menuBtn = document.getElementById('menuBtn');
@@ -181,3 +164,7 @@
   </script>
 </body>
 </html>
+
+
+x
+
