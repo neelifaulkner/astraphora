@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0714" />
+  <meta name="description" content="Explore digital downloads, affirmations, and thoughtful resources from Astraphora." />
+  <title>The Library • Astraphora</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100svh;background:#06040b;color:#f6f4ff;font-family:Inter,system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+    .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:radial-gradient(1200px 800px at 70% 20%,rgba(111,66,193,.15),transparent 60%),radial-gradient(900px 700px at 20% 80%,rgba(0,166,255,.12),transparent 60%),linear-gradient(180deg,#05030a 0%,#0a0714 60%,#04020a 100%)}
+    .stars,.stars2,.stars3{position:absolute;inset:-2000px 0 0;background-repeat:repeat;animation:drift 180s linear infinite;filter:drop-shadow(0 0 2px rgba(255,255,255,.35))}
+    .stars{background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent);background-size:200px 200px;opacity:.4}
+    .stars2{background-image:radial-gradient(1.5px 1.5px at 60px 80px,#b9a8ff,transparent);background-size:240px 240px;opacity:.35;animation-duration:240s}
+    .stars3{background-image:radial-gradient(1px 1px at 100px 140px,#9ad0ff,transparent);background-size:260px 260px;opacity:.3;animation-duration:300s}
+    @keyframes drift{to{transform:translateY(200px)}}
+    @media(prefers-reduced-motion:reduce){.stars,.stars2,.stars3{animation:none}}
+    .wrap{position:relative;z-index:1;min-height:100svh;display:grid;grid-template-rows:auto 1fr auto}
+    header{text-align:center;padding:64px 16px 10px}
+    .brand{font-family:Cinzel,serif;letter-spacing:.18em;font-weight:600;font-size:clamp(18px,5vw,28px);color:#eae6ff;text-shadow:0 0 18px rgba(140,84,255,.35)}
+    .tagline{font-size:13px;opacity:.7;letter-spacing:.08em}
+    main{width:min(1050px,92vw);margin:0 auto;padding:54px 0 76px}
+    .intro{text-align:center;max-width:670px;margin:0 auto 52px}
+    .eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#c7b7ff;margin:0 0 14px}
+    h1,h2,h3{font-family:Cinzel,serif;font-weight:600}
+    h1{font-size:clamp(28px,5vw,44px);letter-spacing:.12em;text-transform:uppercase;margin:0 0 16px}
+    .intro p:last-child{color:#ddd5f2;font-size:15px;margin:0}
+    .section-heading{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+    .section-heading h2{font-size:15px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;margin:0}
+    .section-heading:after{content:"";height:1px;background:rgba(174,146,255,.2);flex:1}
+    .products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+    .product{overflow:hidden;border-radius:18px;border:1px solid rgba(150,120,255,.2);background:rgba(12,8,22,.68);box-shadow:0 12px 32px rgba(0,0,0,.25);display:flex;flex-direction:column}
+    .cover{aspect-ratio:1/1;background:#080611;border-bottom:1px solid rgba(150,120,255,.18);overflow:hidden}
+    .cover img{display:block;width:100%;height:100%;object-fit:contain}
+    .product-content{padding:22px;display:flex;flex:1;flex-direction:column}
+    .type{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#bda9ef;margin:0 0 8px}
+    h3{font-size:17px;letter-spacing:.04em;margin:0 0 10px}
+    .description{font-size:13px;color:#d4cce4;margin:0 0 22px;flex:1}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:999px;border:1px solid rgba(173,140,255,.35);background:radial-gradient(120% 220% at 50% 0%,rgba(129,97,255,.35),rgba(39,18,66,.6));color:#fff;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:.04em;box-shadow:0 8px 24px rgba(76,36,140,.25);transition:transform .2s,border-color .2s}
+    .btn:hover{transform:translateY(-2px);border-color:#c4adff}
+    .btn:focus-visible,.menu-btn:focus-visible,.menu-close:focus-visible,.menu-link:focus-visible{outline:2px solid #c1a7ff;outline-offset:3px}
+    .note{text-align:center;color:#afa5c6;font-size:12px;margin:30px 0 0}
+    footer{text-align:center;font-size:12px;opacity:.55;padding:18px 16px 26px}
+    .menu-btn{position:fixed;top:16px;right:16px;width:42px;height:42px;display:grid;place-items:center;border-radius:999px;background:rgba(30,20,55,.7);border:1px solid rgba(173,140,255,.35);color:#e9e3ff;font-size:20px;cursor:pointer;z-index:50}
+    .menu-overlay{position:fixed;inset:0;z-index:49;display:none;align-items:center;justify-content:center;background:rgba(8,5,18,.94);backdrop-filter:blur(12px)}
+    .menu-overlay.active{display:flex}
+    .menu-panel{text-align:center;padding:24px}
+    .menu-title{font-family:Cinzel,serif;letter-spacing:.12em;text-transform:uppercase;font-size:14px;opacity:.7;margin-bottom:18px}
+    .menu-list{list-style:none;padding:0;margin:0}
+    .menu-list li{margin:12px 0}
+    .menu-link{color:#f3efff;text-decoration:none;font-family:Cinzel,serif;font-size:1.2rem}
+    .menu-close{margin-top:22px;border:1px solid rgba(173,140,255,.35);background:rgba(30,20,55,.6);color:#fff;border-radius:999px;padding:10px 14px;cursor:pointer}
+    @media(max-width:760px){.products{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:520px){main{padding-top:36px}.products{grid-template-columns:1fr}.cover{aspect-ratio:1/1}.intro{margin-bottom:38px}}
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"><div class="stars"></div><div class="stars2"></div><div class="stars3"></div></div>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menuOverlay">☰</button>
+  <nav class="menu-overlay" id="menuOverlay" aria-hidden="true" aria-label="Site navigation">
+    <div class="menu-panel">
+      <div class="menu-title">Astraphora</div>
+      <ul class="menu-list">
+        <li><a class="menu-link" href="./">Home</a></li>
+        <li><a class="menu-link" href="./about.html">About</a></li>
+        <li><a class="menu-link" href="./library.html" aria-current="page">The Library</a></li>
+        <li><a class="menu-link" href="./support.html">Support</a></li>
+        <li><a class="menu-link" href="./contact.html">Contact</a></li>
+      </ul>
+      <button class="menu-close" id="menuClose" aria-label="Close menu">✕ Close</button>
+    </div>
+  </nav>
+  <div class="wrap">
+    <header><div class="brand">ASTRAPHORA</div><div class="tagline">a celestial affirmation companion</div></header>
+    <main>
+      <div class="intro">
+        <p class="eyebrow">✦ A collection for the journey</p>
+        <h1>The Library</h1>
+        <p>Little things for your inner universe. Explore digital downloads, affirmations, and thoughtful resources designed to bring more intention into everyday life.</p>
+      </div>
+      <div class="section-heading"><h2>Explore the collection</h2></div>
+      <div class="products">
+        <article class="product">
+          <div class="cover"><img src="images/starlight-phone-wallpapers.png" alt="Starlight phone affirmation wallpapers product preview" loading="lazy" width="1080" height="1080"></div>
+          <div class="product-content">
+            <p class="type">Free • Phone wallpapers</p>
+            <h3>Starlight Phone Wallpapers</h3>
+            <p class="description">12 exclusive celestial affirmation wallpapers for iPhone and Android. A little encouragement for your lock screen.</p>
+            <a class="btn" href="https://shop.beacons.ai/astraphora/4a5effed-de77-4a5b-9940-306726ef0a18" target="_blank" rel="noopener noreferrer" aria-label="Get Free Wallpapers: Starlight Phone Wallpapers">Get Free Wallpapers</a>
+          </div>
+        </article>
+        <article class="product">
+          <div class="cover"><img src="images/starlight-desktop-wallpapers.png" alt="Starlight desktop affirmation wallpapers product preview" loading="lazy" width="1080" height="1080"></div>
+          <div class="product-content">
+            <p class="type">Free • Desktop wallpapers</p>
+            <h3>Starlight Desktop Wallpapers</h3>
+            <p class="description">12 high-resolution desktop backgrounds featuring affirmations for abundance, love, health, and purpose.</p>
+            <a class="btn" href="https://shop.beacons.ai/astraphora/774dba62-9f10-4c5c-bd7a-fab35678c245" target="_blank" rel="noopener noreferrer" aria-label="Get Free Wallpapers: Starlight Desktop Wallpapers">Get Free Wallpapers</a>
+          </div>
+        </article>
+        <article class="product">
+          <div class="cover"><img src="images/starlight-ipad-wallpapers.png" alt="Starlight iPad affirmation wallpapers product preview" loading="lazy" width="1080" height="1080"></div>
+          <div class="product-content">
+            <p class="type">Free • iPad wallpapers</p>
+            <h3>Starlight iPad Wallpapers</h3>
+            <p class="description">12 celestial affirmation backgrounds made for your iPad home screen, lock screen, or both.</p>
+            <a class="btn" href="https://shop.beacons.ai/astraphora/96a91d03-677a-431f-858b-87d66e2ffa63" target="_blank" rel="noopener noreferrer" aria-label="Get Free Wallpapers: Starlight iPad Wallpapers">Get Free Wallpapers</a>
+          </div>
+        </article>
+        <article class="product">
+          <div class="cover"><img src="images/intention-journal.png" alt="30-Day Intention Journal cover and printable PDF product preview" loading="lazy" width="1080" height="1080"></div>
+          <div class="product-content">
+            <p class="type">$9.99 • Printable journal</p>
+            <h3>30-Day Intention Journal</h3>
+            <p class="description">A 38-page guided PDF journal with daily affirmations, reflection prompts, gratitude practice, and weekly check-ins.</p>
+            <a class="btn" href="https://shop.beacons.ai/astraphora/b198e6c7-bbe4-4ed6-9fc6-b3251c6f4144" target="_blank" rel="noopener noreferrer" aria-label="Explore the Journal: 30-Day Intention Journal">Explore the Journal</a>
+          </div>
+        </article>
+      </div>
+      <p class="note">Digital products are delivered through their linked storefronts.</p>
+    </main>
+    <footer>© <span id="year"></span> Astraphora™. All rights reserved.</footer>
+  </div>
+  <script>
+    document.getElementById('year').textContent=new Date().getFullYear();
+    const menuBtn=document.getElementById('menuBtn');
+    const menuOverlay=document.getElementById('menuOverlay');
+    const menuClose=document.getElementById('menuClose');
+    function openMenu(){menuOverlay.classList.add('active');menuOverlay.setAttribute('aria-hidden','false');menuBtn.setAttribute('aria-expanded','true');menuClose.focus();}
+    function closeMenu(){menuOverlay.classList.remove('active');menuOverlay.setAttribute('aria-hidden','true');menuBtn.setAttribute('aria-expanded','false');menuBtn.focus();}
+    menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('active')?closeMenu():openMenu());
+    menuClose.addEventListener('click',closeMenu);
+    menuOverlay.addEventListener('click',e=>{if(e.target===menuOverlay||e.target.matches('.menu-link'))closeMenu();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOverlay.classList.contains('active'))closeMenu();});
+  </script>
+</body>
+</html>
