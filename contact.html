@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact • Astraphora</title>
   <meta name="theme-color" content="#0a0714" />
-  <meta name="description" content="Contact Astraphora — reach out to creator Neeli Faulkner with questions or collaborations." />
+  <meta name="description" content="Contact Astraphora with questions, ideas, feedback, or collaborations." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
@@ -23,14 +30,14 @@
     .brand{font-family:Cinzel,serif;letter-spacing:.18em;text-transform:uppercase;font-weight:600;font-size:clamp(18px,5vw,28px);color:#eae6ff;text-shadow:0 0 18px rgba(140,84,255,.35)}
     .tagline{margin-top:4px;font-size:13px;opacity:.7;letter-spacing:.08em}
     main{display:grid;place-items:center;padding:24px 16px}
-    .card{width:min(860px,92vw);border-radius:18px;padding:clamp(20px,5vw,36px);background:rgba(12,8,22,.55);backdrop-filter:blur(6px);border:1px solid rgba(150,120,255,.18)}
+    .card{width:min(860px,92vw);border-radius:18px;padding:clamp(20px,5vw,36px);background:rgba(12,8,22,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(150,120,255,.18)}
     h1{font-family:Cinzel,serif;text-transform:uppercase;letter-spacing:.1em;font-size:clamp(18px,3.6vw,22px);margin:0 0 12px}
     p{margin:8px 0;color:#efeaff}
     a{color:#bbaaff;text-decoration:underline}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:999px;border:1px solid rgba(173,140,255,.35);background:radial-gradient(120% 220% at 50% 0%,rgba(129,97,255,.35),rgba(39,18,66,.6));color:#fff;text-decoration:none;font-weight:600;letter-spacing:.04em;box-shadow:0 8px 24px rgba(76,36,140,.35)}
+    a:focus-visible,button:focus-visible{outline:2px solid #c1a7ff;outline-offset:3px}
     footer{text-align:center;font-size:12px;opacity:.55;padding:18px 16px 26px}
     .menu-btn{position:fixed;top:16px;right:16px;width:42px;height:42px;display:grid;place-items:center;border-radius:999px;background:rgba(30,20,55,.6);border:1px solid rgba(173,140,255,.35);color:#e9e3ff;font-size:20px;cursor:pointer;z-index:50}
-    .menu-overlay{position:fixed;inset:0;z-index:49;display:none;align-items:center;justify-content:center;background:rgba(8,5,18,.92);backdrop-filter:blur(12px)}
+    .menu-overlay{position:fixed;inset:0;z-index:49;display:none;align-items:center;justify-content:center;background:rgba(8,5,18,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
     .menu-overlay.active{display:flex}
     .menu-panel{text-align:center;padding:24px}
     .menu-list{list-style:none;padding:0;margin:0}
@@ -46,12 +53,12 @@
   <nav class="menu-overlay" id="menuOverlay" aria-hidden="true">
     <div class="menu-panel" role="dialog" aria-modal="true" aria-label="Site menu">
       <ul class="menu-list">
-  <li><a class="menu-link" href="./">Home</a></li>
-  <li><a class="menu-link" href="./about.html">About</a></li>
-  <li><a class="menu-link" href="./support.html">Support</a></li>
-  <li><a class="menu-link" href="./contact.html">Contact</a></li>
-</ul>
-      <button class="menu-close" id="menuClose">✕ Close</button>
+        <li><a class="menu-link" href="./">Home</a></li>
+        <li><a class="menu-link" href="./about.html">About</a></li>
+        <li><a class="menu-link" href="./support.html">Support</a></li>
+        <li><a class="menu-link" href="./contact.html">Contact</a></li>
+      </ul>
+      <button class="menu-close" id="menuClose" aria-label="Close menu">✕ Close</button>
     </div>
   </nav>
 
@@ -60,20 +67,19 @@
     <main>
       <article class="card">
         <h1>Contact</h1>
-        <p>If you’d like to reach out with ideas, collaborations, or simply to share your experience with Astraphora, Neeli would love to hear from you.</p>
-        <p><strong>Email:</strong> <a href="mailto:neeli.faulkner@gmail.com">neeli.faulkner@gmail.com</a></p>
-        <p>You can also find Neeli’s work at <a href="https://neelifaulkner.com" target="_blank" rel="noopener">neelifaulkner.com</a>.</p>
-        <p class="muted">Expect a reply guided by moonlight and good timing.</p>
+        <p>Have a question, an idea, or something you'd like to share? We'd love to hear about your experience with Astraphora.</p>
+        <p><strong>Email:</strong> <a href="mailto:astraphora@gmail.com">astraphora@gmail.com</a></p>
+        <p>For feedback, questions, or collaboration inquiries, feel free to reach out anytime.</p>
       </article>
     </main>
-    <footer>© <span id="year"></span> Neeli Faulkner. All rights reserved. Astraphora™</footer>
+    <footer>© <span id="year"></span> Astraphora™. All rights reserved.</footer>
   </div>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const menuBtn=document.getElementById('menuBtn'),menuOverlay=document.getElementById('menuOverlay'),menuClose=document.getElementById('menuClose');
     function openMenu(){menuOverlay.classList.add('active');menuOverlay.setAttribute('aria-hidden','false');menuBtn.setAttribute('aria-expanded','true');}
-    function closeMenu(){menuOverlay.classList.remove('active');menuOverlay.setAttribute('aria-hidden','true');menuBtn.setAttribute('aria-expanded','false');}
+    function closeMenu(){menuOverlay.classList.remove('active');menuOverlay.setAttribute('aria-hidden','true');menuBtn.setAttribute('aria-expanded','false');menuBtn.focus({preventScroll:true});}
     menuBtn.addEventListener('click',()=>menuOverlay.classList.contains('active')?closeMenu():openMenu());
     menuClose.addEventListener('click',closeMenu);
     menuOverlay.addEventListener('click',e=>{if(e.target===menuOverlay||e.target.matches('.menu-link'))closeMenu();});
@@ -81,3 +87,7 @@
   </script>
 </body>
 </html>
+
+
+
+
